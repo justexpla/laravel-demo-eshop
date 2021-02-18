@@ -1,0 +1,23 @@
+@php /** @var \App\Models\Shop\Category $category*/ @endphp
+
+@if ($category->children->count())
+    <div class="list-group-item list-group-item-action">
+        <div class="d-flex">
+            <a href="#" class="flex-fill">
+                {{ $category->title }}
+            </a>
+            <button type="button" class="btn btn-sm dropdown-toggle" onclick="$('.submenu-{{ $category->id }}').toggle()">
+                <span class="sr-only">Toggle Dropdown</span>
+            </button>
+        </div>
+        <div class="submenu-{{ $category->id }}" style="display: none">
+            @foreach($category->children as $subCategory)
+                @include('shop.blocks.leftmenu_sub-item', ['category' => $subCategory])
+            @endforeach
+        </div>
+    </div>
+@else
+    <a href="#" class="list-group-item list-group-item-action">
+        {{ $category->title }}
+    </a>
+@endif

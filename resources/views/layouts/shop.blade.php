@@ -55,53 +55,7 @@
 
             <div class="col-lg-3 my-4">
 
-                <div class="list-group">
-
-                    <a href="#" class="list-group-item list-group-item-action active">
-                        Cras justo odio
-                    </a>
-
-                    <a href="#" class="list-group-item list-group-item-action">Dapibus ac facilisis in</a>
-
-                    <div class="list-group-item list-group-item-action">
-                        <div class="d-flex">
-                            <a href="#" class="flex-fill">
-                                Cras justo odio
-                            </a>
-                            <button type="button" class="btn btn-sm dropdown-toggle" onclick="$('.submenu-2').toggle()">
-                                <span class="sr-only">Toggle Dropdown</span>
-                            </button>
-                        </div>
-                        <div class="submenu-2" style="display: none">
-                            <a href="#" class="list-group-subitem">
-                                Cras justo odio
-                            </a>
-
-                            <div class="list-group-subitem">
-                                <div class="d-flex">
-                                    <a href="#" class="flex-fill">
-                                        Cras justo odio
-                                    </a>
-                                    <button type="button" class="btn btn-sm dropdown-toggle" onclick="$('.submenu-2-5').toggle()">
-                                        <span class="sr-only">Toggle Dropdown</span>
-                                    </button>
-                                </div>
-
-                                <div class="submenu-2-5" style="display: none">
-                                    <a href="#" class="list-group-subitem">
-                                        Cras justo odio
-                                    </a>
-                                    <a href="#" class="list-group-subitem">Dapibus ac facilisis in</a>
-                                </div>
-
-                            </div>
-
-                            <a href="#" class="list-group-subitem">Dapibus ac facilisis in</a>
-                        </div>
-                    </div>
-
-                    <a href="#" class="list-group-item list-group-item-action">Dapibus ac facilisis in</a>
-                </div>
+                @include('shop.blocks.leftmenu')
 
             </div>
             <!-- /.col-lg-3 -->

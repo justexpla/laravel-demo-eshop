@@ -1,0 +1,20 @@
+/*!
+ * Start Bootstrap - Shop Homepage (https://startbootstrap.com/template/shop-homepage)
+ * Copyright 2013-2020 Start Bootstrap
+ * Licensed under MIT (https://github.com/StartBootstrap/startbootstrap-shop-homepage/blob/master/LICENSE)
+ */
+body {
+  padding-top: 56px;
+}
+
+.wrapper {
+  min-height: calc(100vh - 10rem);
+}
+
+.list-group-subitem {
+    position: relative;
+    display: block;
+    padding: 0.75rem 0;
+    padding-left: 0.75rem;
+    border-top: 1px solid rgba(0,0,0,.125);
+}

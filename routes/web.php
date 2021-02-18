@@ -13,6 +13,7 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', function () {
-    return '';
+Route::group(['as' => 'shop.'], function () {
+    Route::get('/', [\App\Http\Controllers\Shop\IndexController::class, 'index'])->name('index');
 });
+

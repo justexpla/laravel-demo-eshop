@@ -18,6 +18,8 @@ Route::group(['as' => 'shop.', 'middleware' => ['with_left_menu']], function () 
 
     Route::group(['prefix' => 'catalog', 'as' => 'catalog.'], function () {
         Route::get('/category/{category}', [\App\Http\Controllers\Shop\Catalog\CatalogController::class, 'category'])->name('category');
+
+        Route::get('/product/{product}', [\App\Http\Controllers\Shop\Catalog\CatalogController::class, 'product'])->name('product');
     });
 });
 

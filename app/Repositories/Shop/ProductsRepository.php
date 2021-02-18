@@ -34,7 +34,7 @@ class ProductsRepository extends BaseRepository
     {
         $data = $this->startConditions()
             ->active()
-            ->select(['title', 'image', 'price', 'description'])
+            ->select(['title', 'image', 'price', 'description', 'slug'])
             ->paginate($this->perPage);
 
         return $data;
@@ -49,6 +49,7 @@ class ProductsRepository extends BaseRepository
     public function getProductsByCategoriesIds(array $categoriesIds): LengthAwarePaginator
     {
         $data = $this->startConditions()
+            ->select(['title', 'image', 'price', 'description', 'slug'])
             ->whereIn('category_id', $categoriesIds)
             ->paginate($this->perPage);
 

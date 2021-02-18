@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Shop\Catalog;
 use App\Http\Controllers\Controller;
 use App\Http\Controllers\Shop\BaseController;
 use App\Models\Shop\Category;
+use App\Models\Shop\Product;
 use App\Repositories\Shop\CategoriesRepository;
 use App\Repositories\Shop\ProductsRepository;
 use Illuminate\Http\Request;
@@ -35,6 +36,13 @@ class CatalogController extends BaseController
         return view('shop.catalog.category')->with([
             'products' => $products,
             'categoryTitle' => $category->title,
+        ]);
+    }
+
+    public function product(Product $product)
+    {
+        return view('shop.catalog.product')->with([
+            'product' => $product
         ]);
     }
 }

@@ -7,6 +7,18 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Support\Str;
 
+/**
+ * Class Product
+ * @package App\Models\Shop
+ * @property int $id
+ * @property string $title
+ * @property string $slug
+ * @property string $text
+ * @property string $image
+ * @property int $category_id
+ * @property int|float $price
+ * @method Builder active();
+ */
 class Product extends Model
 {
     use HasFactory;
@@ -48,8 +60,19 @@ class Product extends Model
             : (int) $price / 10000;
     }
 
+    /**
+     * @return string
+     */
     public function getRouteKeyName()
     {
         return 'slug';
+    }
+
+    /**
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
+     */
+    public function category()
+    {
+        return $this->belongsTo(Category::class);
     }
 }

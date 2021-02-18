@@ -11,15 +11,11 @@ use Illuminate\Http\Request;
 
 class IndexController extends BaseController
 {
-    /** @var CategoriesRepository */
-    private $categoriesRepository;
-
     /** @var ProductsRepository */
     private $productsRepository;
 
     public function __construct()
     {
-        $this->categoriesRepository = app(CategoriesRepository::class);
         $this->productsRepository = app(ProductsRepository::class);
     }
 
@@ -31,14 +27,10 @@ class IndexController extends BaseController
      */
     public function index()
     {
-        $categories = $this->categoriesRepository
-            ->getCategoriesAsTree();
-
         $products = $this->productsRepository
             ->getProductsForIndexPage();
 
         return view('shop.index')->with([
-            'categories' => $categories,
             'products' => $products
         ]);
     }

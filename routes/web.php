@@ -13,7 +13,7 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::group(['as' => 'shop.'], function () {
+Route::group(['as' => 'shop.', 'middleware' => ['with_left_menu']], function () {
     Route::get('/', [\App\Http\Controllers\Shop\IndexController::class, 'index'])->name('index');
 
     Route::group(['prefix' => 'catalog', 'as' => 'catalog.'], function () {

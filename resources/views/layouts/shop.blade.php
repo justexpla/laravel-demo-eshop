@@ -52,15 +52,16 @@
     <div class="container">
 
         <div class="row">
+            @if(request()->get('leftMenu'))
+                <div class="col-lg-3 my-4">
 
-            <div class="col-lg-3 my-4">
+                    @include('shop.blocks.leftmenu')
 
-                @include('shop.blocks.leftmenu')
-
-            </div>
+                </div>
+            @endif
             <!-- /.col-lg-3 -->
 
-            <div class="col-lg-9">
+            <div class="col-lg-{{request()->get('leftMenu') ? '9' : '12'}}">
 
                 <!-- content -->
                 @yield('content')

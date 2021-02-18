@@ -11,15 +11,11 @@ use Illuminate\Http\Request;
 
 class CatalogController extends BaseController
 {
-    /** @var CategoriesRepository */
-    private $categoriesRepository;
-
     /** @var ProductsRepository */
     protected $productRepository;
 
     public function __construct()
     {
-        $this->categoriesRepository = app(CategoriesRepository::class);
         $this->productRepository = app(ProductsRepository::class);
     }
 
@@ -31,16 +27,12 @@ class CatalogController extends BaseController
      */
     public function category(Category $category)
     {
-        $categories = $this->categoriesRepository
-            ->getCategoriesAsTree();
-
         $categoriesIds = array_merge([$category->id], $category->getChildrenIds());
 
         $products = $this->productRepository
             ->getProductsByCategoriesIds($categoriesIds);
 
         return view('shop.catalog.category')->with([
-            'categories' => $categories,
             'products' => $products,
             'categoryTitle' => $category->title,
         ]);

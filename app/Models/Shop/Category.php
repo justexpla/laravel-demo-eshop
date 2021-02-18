@@ -7,6 +7,15 @@ use Illuminate\Database\Eloquent\Model;
 use Kalnoy\Nestedset\NestedSet;
 use Kalnoy\Nestedset\NodeTrait;
 
+/**
+ * Class Category
+ * @package App\Models\Shop
+ * @property int $id
+ * @property string $title
+ * @property string $slug
+ * @property string $image
+ * @property int $parent_id
+ */
 class Category extends Model
 {
     use HasFactory, NodeTrait;

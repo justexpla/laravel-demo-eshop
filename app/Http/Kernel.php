@@ -2,7 +2,9 @@
 
 namespace App\Http;
 
+use App\Http\Middleware\GenerateCartId;
 use App\Http\Middleware\IncludeLeftMenu;
+use App\Http\Middleware\InitializeCart;
 use App\Http\Middleware\WithLeftMenu;
 use Illuminate\Foundation\Http\Kernel as HttpKernel;
 
@@ -39,6 +41,10 @@ class Kernel extends HttpKernel
             \Illuminate\View\Middleware\ShareErrorsFromSession::class,
             \App\Http\Middleware\VerifyCsrfToken::class,
             \Illuminate\Routing\Middleware\SubstituteBindings::class,
+            /*
+             * Custom
+            */
+            InitializeCart::class,
         ],
 
         'api' => [

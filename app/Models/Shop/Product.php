@@ -75,4 +75,14 @@ class Product extends Model
     {
         return $this->belongsTo(Category::class);
     }
+
+    /**
+     * Determine if product can be added to the cart
+     *
+     * @return bool
+     */
+    public function canBeAddedToCart(): bool
+    {
+        return $this->is_active && $this->price > 0;
+    }
 }

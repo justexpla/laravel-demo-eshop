@@ -21,5 +21,12 @@ Route::group(['as' => 'shop.', 'middleware' => ['with_left_menu']], function () 
 
         Route::get('/product/{product}', [\App\Http\Controllers\Shop\Catalog\CatalogController::class, 'product'])->name('product');
     });
+
+    Route::group(['prefix' => 'cart', 'as' => 'cart.'], function () {
+        Route::get('/', [\App\Http\Controllers\Shop\CartController::class, 'index'])->name('index');
+        Route::get('/add/{product_id}', [\App\Http\Controllers\Shop\CartController::class, 'add'])->name('add');
+        Route::get('/remove/{product_id}', [\App\Http\Controllers\Shop\CartController::class, 'remove'])->name('remove');
+        Route::get('/reset', [\App\Http\Controllers\Shop\CartController::class, 'reset'])->name('reset');
+    });
 });
 

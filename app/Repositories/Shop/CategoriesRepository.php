@@ -2,6 +2,7 @@
 
 namespace App\Repositories\Shop;
 
+use App\Models\Shop\Category;
 use App\Models\Shop\Category as Model;
 use Illuminate\Database\Eloquent\Collection;
 use Kalnoy\Nestedset\NestedSet;

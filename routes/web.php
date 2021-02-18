@@ -15,5 +15,9 @@ use Illuminate\Support\Facades\Route;
 
 Route::group(['as' => 'shop.'], function () {
     Route::get('/', [\App\Http\Controllers\Shop\IndexController::class, 'index'])->name('index');
+
+    Route::group(['prefix' => 'catalog', 'as' => 'catalog.'], function () {
+        Route::get('/category/{category}', [\App\Http\Controllers\Shop\Catalog\CatalogController::class, 'category'])->name('category');
+    });
 });
 

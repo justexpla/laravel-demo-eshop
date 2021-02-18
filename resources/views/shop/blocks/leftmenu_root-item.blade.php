@@ -1,9 +1,10 @@
 @php /** @var \App\Models\Shop\Category $category*/ @endphp
+@php $link = route('shop.catalog.category', ['category' => $category->slug]) @endphp
 
 @if ($category->children->count())
     <div class="list-group-item list-group-item-action">
         <div class="d-flex">
-            <a href="#" class="flex-fill">
+            <a href="{{ $link }}" class="flex-fill">
                 {{ $category->title }}
             </a>
             <button type="button" class="btn btn-sm dropdown-toggle" onclick="$('.submenu-{{ $category->id }}').toggle()">
@@ -17,7 +18,7 @@
         </div>
     </div>
 @else
-    <a href="#" class="list-group-item list-group-item-action">
+    <a href="{{ $link }}" class="list-group-item list-group-item-action">
         {{ $category->title }}
     </a>
 @endif

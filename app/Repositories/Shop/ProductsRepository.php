@@ -4,10 +4,14 @@ namespace App\Repositories\Shop;
 
 use App\Models\Shop\Product as Model;
 use Illuminate\Database\Eloquent\Collection;
+use Illuminate\Pagination\LengthAwarePaginator;
 use Kalnoy\Nestedset\NestedSet;
 
 class ProductsRepository extends BaseRepository
 {
+    /** @var int */
+    protected $perPage;
+
     /**
      * @return string
      */
@@ -16,17 +20,37 @@ class ProductsRepository extends BaseRepository
         return Model::class;
     }
 
-    /**
-     * @return Collection
-     */
-    public function getProductsForIndexPage()
+    public function __construct()
     {
-        $count = config('shop.catalog_products_per_page');
+        parent::__construct();
 
+        $this->perPage = config('shop.catalog_products_per_page') ?? 15;
+    }
+
+    /**
+     * @return LengthAwarePaginator
+     */
+    public function getProductsForIndexPage(): LengthAwarePaginator
+    {
         $data = $this->startConditions()
             ->active()
             ->select(['title', 'image', 'price', 'description'])
-            ->paginate($count);
+            ->paginate($this->perPage);
+
+        return $data;
+    }
+
+    /**
+     * Returns products of categories
+     *
+     * @param array $categoriesIds
+     * @return LengthAwarePaginator
+     */
+    public function getProductsByCategoriesIds(array $categoriesIds): LengthAwarePaginator
+    {
+        $data = $this->startConditions()
+            ->whereIn('category_id', $categoriesIds)
+            ->paginate($this->perPage);
 
         return $data;
     }

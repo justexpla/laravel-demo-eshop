@@ -1,45 +1,48 @@
 <?php
 
-namespace App\Http\Controllers\Shop;
+namespace App\Http\Controllers\Shop\Catalog;
 
 use App\Http\Controllers\Controller;
+use App\Http\Controllers\Shop\BaseController;
 use App\Models\Shop\Category;
-use App\Models\Shop\Product;
 use App\Repositories\Shop\CategoriesRepository;
 use App\Repositories\Shop\ProductsRepository;
 use Illuminate\Http\Request;
 
-class IndexController extends BaseController
+class CatalogController extends BaseController
 {
     /** @var CategoriesRepository */
     private $categoriesRepository;
 
     /** @var ProductsRepository */
-    private $productsRepository;
+    protected $productRepository;
 
     public function __construct()
     {
         $this->categoriesRepository = app(CategoriesRepository::class);
-        $this->productsRepository = app(ProductsRepository::class);
+        $this->productRepository = app(ProductsRepository::class);
     }
 
     /**
-     * Index page
-     * url /
+     * url /catalog/category/{category}
      *
+     * @param Category $category
      * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\View\Factory|\Illuminate\Contracts\View\View
      */
-    public function index()
+    public function category(Category $category)
     {
         $categories = $this->categoriesRepository
             ->getCategoriesAsTree();
 
-        $products = $this->productsRepository
-            ->getProductsForIndexPage();
+        $categoriesIds = array_merge([$category->id], $category->getChildrenIds());
 
-        return view('shop.index')->with([
+        $products = $this->productRepository
+            ->getProductsByCategoriesIds($categoriesIds);
+
+        return view('shop.catalog.category')->with([
             'categories' => $categories,
-            'products' => $products
+            'products' => $products,
+            'categoryTitle' => $category->title,
         ]);
     }
 }

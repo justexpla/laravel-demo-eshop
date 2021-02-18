@@ -16,4 +16,24 @@ class Category extends Model
     protected $fillable = [
         'title', 'slug' , 'image', NestedSet::PARENT_ID, NestedSet::LFT, NestedSet::RGT
     ];
+
+    public function getRouteKeyName()
+    {
+        return 'slug';
+    }
+
+    /**
+     * Returns ids of children categories
+     *
+     * @return array
+     */
+    public function getChildrenIds()
+    {
+        $this->load('children');
+
+        return $this->descendants()
+            ->get()
+            ->pluck('id')
+            ->toArray();
+    }
 }

@@ -62,7 +62,7 @@
                                aria-haspopup="true"
                                aria-expanded="false">{{ auth()->user()->name }}</a>
                             <div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
-                                <a class="dropdown-item" href="#">Cabinet</a>
+                                <a class="dropdown-item" href="{{ route('shop.cabinet.index') }}">Cabinet</a>
                                 <form action="{{ route('logout') }}" method="POST">
                                     @csrf
                                     <button type="submit" class="dropdown-item btn-link" href="{{ route('logout') }}">Logout</button>

@@ -24,10 +24,20 @@ Route::group(['as' => 'shop.', 'middleware' => ['with_left_menu']], function () 
 
     Route::group(['prefix' => 'cart', 'as' => 'cart.'], function () {
         Route::get('/', [\App\Http\Controllers\Shop\CartController::class, 'index'])->name('index');
-        Route::post('/add', [\App\Http\Controllers\Shop\CartController::class, 'add'])->name('add');
+        Route::post('/add', [\App\Http\Controllers\Sshop\CartController::class, 'add'])->name('add');
         Route::post('/remove', [\App\Http\Controllers\Shop\CartController::class, 'remove'])->name('remove');
         Route::post('/reset', [\App\Http\Controllers\Shop\CartController::class, 'reset'])->name('reset');
         Route::post('/update', [\App\Http\Controllers\Shop\CartController::class, 'update'])->name('update');
+    });
+
+    Route::group(['prefix' => 'cabinet', 'as' => 'cabinet.', 'middleware' => ['auth']], function () {
+        Route::get('/', [\App\Http\Controllers\Shop\Cabinet\CabinetController::class, 'index'])->name('index');
+
+        Route::group(['prefix' =>'user', 'as' => 'user.'], function () {
+            Route::get('/', [\App\Http\Controllers\Shop\Cabinet\UserController::class, 'show'])->name('show');
+            Route::get('/edit', [\App\Http\Controllers\Shop\Cabinet\UserController::class, 'edit'])->name('edit');
+            Route::patch('/edit', [\App\Http\Controllers\Shop\Cabinet\UserController::class, 'update'])->name('update');
+        });
     });
 });
 

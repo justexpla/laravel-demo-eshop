@@ -38,11 +38,38 @@
                     <li class="nav-item">
                         <a class="nav-link" href="#">Contact</a>
                     </li>
-                    <li class="nav-item">
+                </ul>
+                <ul class="navbar-nav ml-auto">
+                    <li class="nav-item mr-4">
                         <a class="nav-link" href="{{route('shop.cart.index')}}">
                             Cart (<span id="cart_items_total">{{\Cart::getContent()->count()}}</span>)
                         </a>
                     </li>
+                    @guest
+                        <li class="nav-item">
+                            <a class="nav-link" href="{{ route('login') }}">Sign in</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="{{ route('register') }}">Register</a>
+                        </li>
+                    @endguest
+                    @auth
+                        <li class="nav-item dropdown">
+                            <a class="nav-link" href="#"
+                               class="dropdown-toggle"
+                               id="dropdownMenuLink"
+                               data-toggle="dropdown"
+                               aria-haspopup="true"
+                               aria-expanded="false">{{ auth()->user()->name }}</a>
+                            <div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
+                                <a class="dropdown-item" href="#">Cabinet</a>
+                                <form action="{{ route('logout') }}" method="POST">
+                                    @csrf
+                                    <button type="submit" class="dropdown-item btn-link" href="{{ route('logout') }}">Logout</button>
+                                </form>
+                            </div>
+                        </li>
+                    @endauth
                 </ul>
             </div>
         </div>

@@ -12,7 +12,7 @@
                 </h5>
                 <hr>
                 <div>
-                    <button class="btn btn-success">Add to the card</button>
+                    <button class="btn btn-success" data-product-id="{{ $product->id }}" data-action="add_to_cart">Add to the card</button>
                     <button class="btn btn-danger">Remove from the card</button>
                 </div>
             </div>

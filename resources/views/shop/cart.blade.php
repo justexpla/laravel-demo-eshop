@@ -10,30 +10,54 @@
                     <th scope="col">Title</th>
                     <th scope="col">Price</th>
                     <th scope="col">Quantity</th>
+                    <th scope="col">Actions</th>
                     <th scope="col">Total</th>
                 </tr>
             </thead>
             <tbody>
-
-            @foreach($cart = \Cart::getContent() as $row)
-                @php /** @var Darryldecode\Cart\ItemCollection $row */ @endphp
-                <tr>
-                    <th scope="row">1</th>
-                    <td></td>
-                    <td>{{$row['name']}}</td>
-                    <td>{{$row['price']}}</td>
-                    <td>{{$row['quantity']}}</td>
-                    <td>{{$row->getPriceSum()}}</td>
-                </tr>
-            @endforeach
+                @foreach($cart = \Cart::getContent() as $row)
+                    @php /** @var Darryldecode\Cart\ItemCollection $row */ @endphp
+                    <tr id="row-{{ $row['id'] }}">
+                        <td>{{ $loop->iteration }}</td>
+                        <td></td>
+                        <td>{{$row['name']}}</td>
+                        <td>{{$row['price']}}</td>
+                        <td>
+                            {{--<button class="btn-sm btn-light d-inline-block"
+                                    data-action="add_to_cart"
+                                    data-product-id="{{ $row['id'] }}"
+                                    data-quantity="1"
+                            >+</button>--}}
+                            <input type="number" class="form-control pl-2 pr-2"
+                                   data-action="update_quantity"
+                                   data-product-id="{{ $row['id'] }}"
+                                   value="{{$row['quantity']}}"
+                                   min="1">
+                            {{--<button class="btn-sm btn-light d-inline-block"
+                                    data-action="remove_from_cart"
+                                    data-product-id="{{ $row['id'] }}"
+                                    data-quantity="1">-</button>--}}
+                        </td>
+                        <td class="action-row">
+                            <button class="btn btn-sm btn-danger" data-action="remove_from_cart" data-product-id="{{ $row['id'] }}">Delete</button>
+                            <button class="btn btn-sm btn-primary"
+                                    data-action="restore_cart_item"
+                                    data-product-id="{{ $row['id'] }}"
+                                    data-quantity="{{ $row['quantity'] }}"
+                                    style="display: none"
+                            >Restore</button>
+                        </td>
+                        <td>{{$row->getPriceSum()}}</td>
+                    </tr>
+                @endforeach
             </tbody>
         </table>
         <div class="text-right">
-            <strong>Total: {{\Cart::getTotal()}}</strong>
+            <strong>Total: <span id="cart_total">{{\Cart::getTotal()}}</span></strong>
         </div>
         <div class="my-2">
             <div class="d-inline-block">
-                <button class="btn btn-danger">Clear the basket</button>
+                <button class="btn btn-danger" id="reset_cart">Clear the basket</button>
             </div>
             <div class="d-inline-block float-right">
                 <button class="btn btn-success">Checkout</button>

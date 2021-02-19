@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Shop;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\Shop\CartActionRequest;
 use App\Models\Shop\Product;
 use Illuminate\Http\Request;
 
@@ -18,10 +19,11 @@ class CartController extends Controller
         return view('shop.cart');
     }
 
-    public function add(int $product_id)
+    public function add(CartActionRequest $request)
     {
         /** @var Product $product */
-        $product = Product::findOrFail($product_id);
+        $product = Product::findOrFail($request->get('product_id'));
+        $quantity = ($request->get('quantity')) ?? 1;
 
         if(! $product->canBeAddedToCart()) {
             return false;
@@ -31,24 +33,68 @@ class CartController extends Controller
             'id' => $product->id,
             'name' => $product->title,
             'price' => $product->price,
-            'quantity' => 1,
+            'quantity' => $quantity,
             'attributes' => array(),
             'associatedModel' => $product
         ]);
+
+        if (\request()->wantsJson()) {
+            $response = json_encode([
+                'status' => true,
+                'cart_items_total' => \Cart::getContent()->count(),
+                'cart_total_sum' => \Cart::getTotal(),
+            ]);
+
+            return $response;
+        }
     }
 
-    public function remove(int $product_id)
+    public function remove(CartActionRequest $request)
     {
-        \Cart::remove($product_id);
+        \Cart::remove($request->get('product_id'));
+
+        if (\request()->wantsJson()) {
+            $response = json_encode([
+                'status' => true,
+                'cart_items_total' => \Cart::getContent()->count(),
+                'cart_total_sum' => \Cart::getTotal(),
+            ]);
+
+            return $response;
+        }
     }
 
     public function reset()
     {
         \Cart::clear();
+
+        return json_encode([
+            'success' => true
+        ]);
     }
 
-    public function update()
+    public function update(CartActionRequest $request)
     {
+        $productId = $request->get('product_id');
 
+        if ($quantity = ($request->get('quantity'))) {
+            \Cart::update($productId, [
+                'quantity' => array(
+                    'relative' => false,
+                    'value' => $quantity,
+                ),
+            ]);
+        }
+
+        if (\request()->wantsJson()) {
+            $response = json_encode([
+                'status' => true,
+                'cart_items_total' => \Cart::getContent()->count(),
+                'cart_total_sum' => \Cart::getTotal(),
+                'new_quantity' => \Cart::get($productId)->quantity,
+            ]);
+
+            return $response;
+        }
     }
 }

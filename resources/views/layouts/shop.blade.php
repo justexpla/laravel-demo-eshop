@@ -39,7 +39,9 @@
                         <a class="nav-link" href="#">Contact</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="{{route('shop.cart.index')}}">Cart ({{\Cart::getContent()->count()}})</a>
+                        <a class="nav-link" href="{{route('shop.cart.index')}}">
+                            Cart (<span id="cart_items_total">{{\Cart::getContent()->count()}}</span>)
+                        </a>
                     </li>
                 </ul>
             </div>

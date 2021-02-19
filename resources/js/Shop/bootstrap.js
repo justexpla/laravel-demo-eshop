@@ -1,0 +1,2 @@
+
+require('./Cart/scripts');

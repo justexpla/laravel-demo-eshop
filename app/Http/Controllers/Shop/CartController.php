@@ -5,38 +5,36 @@ namespace App\Http\Controllers\Shop;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Shop\CartActionRequest;
 use App\Models\Shop\Product;
+use App\Services\Shop\Cart\ShoppingCartService;
 use Illuminate\Http\Request;
 
 class CartController extends Controller
 {
     /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
+     * @var ShoppingCartService
+     */
+    private $cartService;
+
+    public function __construct()
+    {
+        $this->cartService = app(ShoppingCartService::class);
+    }
+
+    /**
+     * @return \Illuminate\Contracts\View\View
      */
     public function index()
     {
         return view('shop.cart');
     }
 
+    /**
+     * @param CartActionRequest $request
+     * @return bool|string
+     */
     public function add(CartActionRequest $request)
     {
-        /** @var Product $product */
-        $product = Product::findOrFail($request->get('product_id'));
-        $quantity = ($request->get('quantity')) ?? 1;
-
-        if(! $product->canBeAddedToCart()) {
-            return false;
-        }
-
-        \Cart::add([
-            'id' => $product->id,
-            'name' => $product->title,
-            'price' => $product->price,
-            'quantity' => $quantity,
-            'attributes' => array(),
-            'associatedModel' => $product
-        ]);
+        $this->cartService->add($request);
 
         if (\request()->wantsJson()) {
             $response = json_encode([
@@ -49,9 +47,13 @@ class CartController extends Controller
         }
     }
 
+    /**
+     * @param CartActionRequest $request
+     * @return bool|string
+     */
     public function remove(CartActionRequest $request)
     {
-        \Cart::remove($request->get('product_id'));
+        $this->cartService->remove($request);
 
         if (\request()->wantsJson()) {
             $response = json_encode([
@@ -64,34 +66,32 @@ class CartController extends Controller
         }
     }
 
+    /**
+     * @return bool|string
+     */
     public function reset()
     {
-        \Cart::clear();
+        $this->cartService->reset();
 
         return json_encode([
             'success' => true
         ]);
     }
 
+    /**
+     * @param CartActionRequest $request
+     * @return bool|string
+     */
     public function update(CartActionRequest $request)
     {
-        $productId = $request->get('product_id');
-
-        if ($quantity = ($request->get('quantity'))) {
-            \Cart::update($productId, [
-                'quantity' => array(
-                    'relative' => false,
-                    'value' => $quantity,
-                ),
-            ]);
-        }
+        $this->cartService->update($request);
 
         if (\request()->wantsJson()) {
             $response = json_encode([
                 'status' => true,
                 'cart_items_total' => \Cart::getContent()->count(),
                 'cart_total_sum' => \Cart::getTotal(),
-                'new_quantity' => \Cart::get($productId)->quantity,
+                'new_quantity' => \Cart::get($request->get('product_id'))->quantity,
             ]);
 
             return $response;

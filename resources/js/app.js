@@ -1,4 +1,6 @@
 require('./bootstrap');
 window.$ = window.jQuery = require('jquery');
 require('bootstrap/dist/js/bootstrap.bundle.min');
-require('./scripts');
+
+/* scripts for shop */
+require('./Shop/bootstrap');

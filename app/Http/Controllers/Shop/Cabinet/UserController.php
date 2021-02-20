@@ -3,11 +3,12 @@
 namespace App\Http\Controllers\Shop\Cabinet;
 
 use App\Http\Controllers\Controller;
+use App\Http\Controllers\Shop\BaseController;
 use App\Http\Requests\Shop\User\UpdateRequest;
 use App\Models\User;
 use Illuminate\Http\Request;
 
-class UserController extends Controller
+class UserController extends BaseController
 {
     /**
      * Display the specified resource.

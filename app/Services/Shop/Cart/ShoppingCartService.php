@@ -81,4 +81,20 @@ class ShoppingCartService implements ICart
     {
         \Cart::clear();
     }
+
+    /**
+     * @return float|int
+     */
+    public function getTotalPrice()
+    {
+        return \Cart::getTotal();
+    }
+
+    /**
+     * @return \Darryldecode\Cart\CartCollection
+     */
+    public function getContent()
+    {
+        return \Cart::getContent();
+    }
 }

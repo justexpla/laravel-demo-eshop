@@ -2,6 +2,7 @@
 
 namespace App\Http;
 
+use App\Http\Middleware\CheckIfCartEmpty;
 use App\Http\Middleware\GenerateCartId;
 use App\Http\Middleware\IncludeLeftMenu;
 use App\Http\Middleware\InitializeCart;
@@ -71,5 +72,6 @@ class Kernel extends HttpKernel
         'throttle' => \Illuminate\Routing\Middleware\ThrottleRequests::class,
         'verified' => \Illuminate\Auth\Middleware\EnsureEmailIsVerified::class,
         'with_left_menu' => WithLeftMenu::class,
+        'check_cart' => CheckIfCartEmpty::class,
     ];
 }

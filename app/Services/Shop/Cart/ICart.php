@@ -28,4 +28,11 @@ interface ICart
      * @return mixed
      */
     public function reset();
+
+    /**
+     * @return int|float
+     */
+    public function getTotalPrice();
+
+    public function getContent();
 }

@@ -30,6 +30,12 @@ Route::group(['as' => 'shop.', 'middleware' => ['with_left_menu']], function () 
         Route::post('/update', [\App\Http\Controllers\Shop\CartController::class, 'update'])->name('update');
     });
 
+    Route::group(['middleware' => ['check_cart']], function () {
+        Route::resource('/order', \App\Http\Controllers\Shop\OrderController::class)
+            ->only(['create', 'store'])
+            ->names('order');
+    });
+
     Route::group(['prefix' => 'cabinet', 'as' => 'cabinet.', 'middleware' => ['auth']], function () {
         Route::get('/', [\App\Http\Controllers\Shop\Cabinet\CabinetController::class, 'index'])->name('index');
 
@@ -40,7 +46,6 @@ Route::group(['as' => 'shop.', 'middleware' => ['with_left_menu']], function () 
         });
     });
 });
-
 
 Route::get('login', [App\Http\Controllers\Auth\LoginController::class, 'showLoginForm'])->name('login');
 Route::post('login', [App\Http\Controllers\Auth\LoginController::class, 'login']);
@@ -60,5 +65,3 @@ Route::post('password/confirm', [App\Http\Controllers\Auth\ConfirmPasswordContro
 Route::get('email/verify', [App\Http\Controllers\Auth\VerificationController::class, 'show'])->name('verification.notice');
 Route::get('email/verify/{id}/{hash}', [App\Http\Controllers\Auth\VerificationController::class, 'verify'])->name('verification.verify');
 Route::post('email/resend', [App\Http\Controllers\Auth\VerificationController::class, 'resend'])->name('verification.resend');
-
-Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');

@@ -8,7 +8,7 @@ use App\Models\Shop\Product;
 use App\Services\Shop\Cart\ShoppingCartService;
 use Illuminate\Http\Request;
 
-class CartController extends Controller
+class CartController extends BaseController
 {
     /**
      * @var ShoppingCartService

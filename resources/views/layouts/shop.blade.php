@@ -90,6 +90,14 @@
 
             <div class="col-lg-{{request()->get('leftMenu') ? '9' : '12'}}">
 
+                @if($errors->count())
+                    <div class="alert alert-danger my-4">{{ $errors->first() }}</div>
+                @endif
+
+                @if(session()->get('status'))
+                    <div class="alert alert-primary my-4">{{ session()->get('status') }}</div>
+                @endif
+
                 <!-- content -->
                 @yield('content')
                 <!-- /content -->

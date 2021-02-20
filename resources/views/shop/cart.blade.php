@@ -53,14 +53,14 @@
             </tbody>
         </table>
         <div class="text-right">
-            <strong>Total: <span id="cart_total">{{\Cart::getTotal()}}</span></strong>
+            <strong>Total: <span id="cart_total">{{ \Cart::getTotal() }}</span></strong>
         </div>
         <div class="my-2">
             <div class="d-inline-block">
                 <button class="btn btn-danger" id="reset_cart">Clear the basket</button>
             </div>
             <div class="d-inline-block float-right">
-                <button class="btn btn-success">Checkout</button>
+                <a class="btn btn-success" href="{{ route('shop.order.create') }}">Checkout</a>
             </div>
         </div>
     @else
@@ -69,7 +69,7 @@
                 <strong>Your cart is empty :(</strong>
             </div>
             <div>
-                <a href="{{route('shop.index')}}">Go to catalog</a>
+                <a href="{{ route('shop.index') }}">Go to catalog</a>
             </div>
         </div>
     @endif

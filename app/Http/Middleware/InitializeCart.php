@@ -24,7 +24,8 @@ class InitializeCart
     public function handle(Request $request, Closure $next)
     {
         if (! $request->session()->get('cart_id')) {
-            $cartId = auth()->id() ?? Str::random(16);
+            //since we don't have any id for unauthenticated user, we'll use big number, which won't conflict with real users carts
+            $cartId = auth()->id() ?? generateNDigitsNumber(12);
             $request->session()->put('cart_id', $cartId);
             $request->session()->save();
         }

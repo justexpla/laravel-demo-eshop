@@ -35,7 +35,6 @@ class OrderService
                 'address' => $data['address'],
                 'commentary' => $data['commentary'] ?? null,
                 'user_id' => $data['user_id'],
-                'cart_id' => $data['cart_id'],
                 'status' => Order::STATUS_AWAITING_PAYMENT,
                 'total_price' => $this->cartService->getTotalPrice()
             ]);

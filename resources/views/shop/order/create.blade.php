@@ -6,7 +6,6 @@
         @include('shop.blocks.order_list')
         <form class="needs-validation" novalidate="" action="{{ route('shop.order.store') }}" method="POST">
             @csrf
-            <input type="hidden" name="cart_id" value="{{ session()->get('cart_id') }}">
             <div class="row g-3">
                 <div class="col-12 mt-2">
                     <label for="fullname" class="form-label">Full name</label>

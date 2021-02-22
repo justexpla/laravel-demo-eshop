@@ -2,6 +2,7 @@
 
 namespace App\Models\Shop;
 
+use App\Models\Shop\Traits\HasPrice;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Builder;
@@ -21,7 +22,7 @@ use Illuminate\Support\Str;
  */
 class Product extends Model
 {
-    use HasFactory;
+    use HasFactory, HasPrice;
 
     protected $table = 'shop_products';
 
@@ -47,17 +48,6 @@ class Product extends Model
         }
 
         return Str::limit($this->description, $limit);
-    }
-
-    /**
-     * @param $price
-     * @return float|int
-     */
-    public function getPriceAttribute($price)
-    {
-        return $price % 10000
-            ? (float) round($price / 10000, 2)
-            : (int) $price / 10000;
     }
 
     /**

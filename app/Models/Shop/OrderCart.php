@@ -2,11 +2,13 @@
 
 namespace App\Models\Shop;
 
-use Illuminate\Database\Eloquent\Factories\HasFactory;
+use App\Models\Shop\Traits\HasPrice;
 use Illuminate\Database\Eloquent\Model;
 
 class OrderCart extends Model
 {
+    use HasPrice;
+
     protected $table = 'shop_orders_carts';
 
     protected $guarded = [];

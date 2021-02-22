@@ -25,12 +25,7 @@ class ProductFactory extends Factory
     {
         $categoryId = Category::first()->id;
 
-        // Price may not be rounded
-        $isDecimalPrice = rand(1, 10) !== 1;
-
-        $price = ($isDecimalPrice)
-            ? rand(10, 10000) * 10000
-            : rand(100000, 100000000);
+        $price = random_int(10, 10000);
 
         $active = rand(1, 10) !== 1;
         $title = $this->faker->sentence(rand(3, 5));

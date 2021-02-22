@@ -19,7 +19,7 @@ class CreateOrderCartsTable extends Migration
             $table->unsignedBigInteger('product_id');
             $table->integer('quantity');
             // keep it for history, since the price of product might change
-            $table->integer('price');
+            $table->unsignedBigInteger('price');
             $table->timestamps();
 
             $table->foreign('order_id')

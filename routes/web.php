@@ -13,7 +13,7 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::group(['as' => 'shop.', 'middleware' => ['with_left_menu']], function () {
+Route::group(['as' => 'shop.', 'middleware' => ['left_menu:categories']], function () {
     Route::get('/', [\App\Http\Controllers\Shop\IndexController::class, 'index'])->name('index');
 
     Route::group(['prefix' => 'catalog', 'as' => 'catalog.'], function () {
@@ -36,7 +36,7 @@ Route::group(['as' => 'shop.', 'middleware' => ['with_left_menu']], function () 
             ->names('order');
     });
 
-    Route::group(['prefix' => 'cabinet', 'as' => 'cabinet.', 'middleware' => ['auth']], function () {
+    Route::group(['prefix' => 'cabinet', 'as' => 'cabinet.', 'middleware' => ['auth', 'left_menu:cabinet']], function () {
         Route::get('/', [\App\Http\Controllers\Shop\Cabinet\CabinetController::class, 'index'])->name('index');
 
         Route::group(['prefix' =>'user', 'as' => 'user.'], function () {

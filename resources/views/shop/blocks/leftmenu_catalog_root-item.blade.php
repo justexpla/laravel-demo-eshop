@@ -13,7 +13,7 @@
         </div>
         <div class="submenu-{{ $category->id }}" style="display: none">
             @foreach($category->children as $subCategory)
-                @include('shop.blocks.leftmenu_sub-item', ['category' => $subCategory])
+                @include('shop.blocks.leftmenu_catalog_sub-item', ['category' => $subCategory])
             @endforeach
         </div>
     </div>

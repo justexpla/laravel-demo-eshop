@@ -44,6 +44,10 @@ Route::group(['as' => 'shop.', 'middleware' => ['with_left_menu']], function () 
             Route::get('/edit', [\App\Http\Controllers\Shop\Cabinet\UserController::class, 'edit'])->name('edit');
             Route::patch('/edit', [\App\Http\Controllers\Shop\Cabinet\UserController::class, 'update'])->name('update');
         });
+
+        Route::resource('/orders', \App\Http\Controllers\Shop\Cabinet\OrderController::class)
+            ->only(['index', 'show'])
+            ->names('orders');
     });
 });
 

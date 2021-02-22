@@ -21,7 +21,7 @@ class Order extends Model
     /**
      * @var string
      */
-    const STATUS_AWAITING_SHIPPING = 'awaiting_payment';
+    const STATUS_AWAITING_SHIPPING = 'awaiting_shipping';
 
     /**
      * @var string
@@ -36,7 +36,9 @@ class Order extends Model
     public static function getStatusList(): array
     {
         return [
-            self::STATUS_AWAITING_PAYMENT, self::STATUS_AWAITING_SHIPPING, self::STATUS_SHIPPED
+            self::STATUS_AWAITING_PAYMENT,
+            self::STATUS_AWAITING_SHIPPING,
+            self::STATUS_SHIPPED
         ];
     }
 
@@ -67,5 +69,15 @@ class Order extends Model
     public function cart()
     {
         return $this->hasMany(OrderCart::class, 'order_id', 'id');
+    }
+
+    /**
+     * Returns status title to show on page
+     *
+     * @return string
+     */
+    public function getStatusTitle()
+    {
+        return __('order.'. $this->status);
     }
 }

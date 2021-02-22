@@ -2,11 +2,13 @@
 
 namespace App\Models\Shop;
 
-use Illuminate\Database\Eloquent\Factories\HasFactory;
+use App\Models\Shop\Traits\HasPrice;
 use Illuminate\Database\Eloquent\Model;
 
 class OrderCart extends Model
 {
+    use HasPrice;
+
     protected $table = 'shop_orders_carts';
 
     protected $guarded = [];
@@ -19,8 +21,19 @@ class OrderCart extends Model
         return $this->belongsTo(Order::class, 'order_id', 'cart_id');
     }
 
+    /**
+     * @return \Illuminate\Database\Eloquent\Relations\HasOne
+     */
     public function product()
     {
-        return $this->hasMany(Product::class, 'id', 'product_id');
+        return $this->hasOne(Product::class, 'id', 'product_id');
+    }
+
+    /**
+     * @return float|int
+     */
+    public function getTotal()
+    {
+        return $this->price * $this->quantity;
     }
 }

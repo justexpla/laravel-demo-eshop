@@ -48,6 +48,7 @@ class OrderController extends BaseController
 
         if ($result) {
             $this->cartService->reset();
+            //redirect to payment page
             return redirect()->route('shop.index')->with([
                 'status' => 'Thank you for your order! We will contact you as soon as possible'
             ]);

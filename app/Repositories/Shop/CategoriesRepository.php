@@ -20,13 +20,27 @@ class CategoriesRepository extends BaseRepository
     /**
      * Get all categories as nested tree
      *
-     * @return Collection
+     * @return \Kalnoy\Nestedset\Collection
      */
     public function getCategoriesAsTree()
     {
         $data = $this->startConditions()
             ->select(['id', 'title', 'slug', NestedSet::PARENT_ID, NestedSet::LFT, NestedSet::RGT])
             ->with(['children'])
+            ->get()
+            ->toTree();
+
+        return $data;
+    }
+
+    /**
+     * @param Model $model
+     * @return \Kalnoy\Nestedset\Collection
+     */
+    public function getChildrenForCategoryAsTree(Model $model)
+    {
+        $data = $model->descendants()
+            ->select(['id', 'title', 'slug', NestedSet::PARENT_ID, NestedSet::LFT, NestedSet::RGT])
             ->get()
             ->toTree();
 

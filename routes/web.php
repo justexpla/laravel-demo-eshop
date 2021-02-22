@@ -51,6 +51,13 @@ Route::group(['as' => 'shop.', 'middleware' => ['left_menu:categories']], functi
     });
 });
 
+Route::group(['as' => 'admin.', 'prefix' => 'admin'], function () {
+    Route::get('/', [\App\Http\Controllers\Admin\IndexController::class, 'index'])->name('index');
+
+    Route::resource('/categories', \App\Http\Controllers\Admin\Catalog\CategoriesController::class)
+        ->names('categories');
+});
+
 Route::get('login', [App\Http\Controllers\Auth\LoginController::class, 'showLoginForm'])->name('login');
 Route::post('login', [App\Http\Controllers\Auth\LoginController::class, 'login']);
 Route::post('logout', [App\Http\Controllers\Auth\LoginController::class, 'logout'])->name('logout');

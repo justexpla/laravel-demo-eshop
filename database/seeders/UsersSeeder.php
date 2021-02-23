@@ -17,7 +17,8 @@ class UsersSeeder extends Seeder
         \App\Models\User::factory()->create([
             'email' => 'ex@ex.io',
             'name' => 'expla',
-            'password' => '$2y$10$ifwUNKzTKc3MxsozW0671O85Bb4dOTqmTM4ptbAIUpEbxQiqupUje'    // c12345678
+            'password' => '$2y$10$ifwUNKzTKc3MxsozW0671O85Bb4dOTqmTM4ptbAIUpEbxQiqupUje',    // c12345678
+            'is_admin' => true
         ]);
 
         User::factory()->count(10)->create();

@@ -51,7 +51,7 @@ Route::group(['as' => 'shop.', 'middleware' => ['left_menu:categories']], functi
     });
 });
 
-Route::group(['as' => 'admin.', 'prefix' => 'admin'], function () {
+Route::group(['as' => 'admin.', 'prefix' => 'admin', 'middleware' => ['admin']], function () {
     Route::get('/', [\App\Http\Controllers\Admin\IndexController::class, 'index'])->name('index');
 
     Route::resource('/categories', \App\Http\Controllers\Admin\Catalog\CategoriesController::class)

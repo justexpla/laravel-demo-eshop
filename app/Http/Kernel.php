@@ -2,6 +2,7 @@
 
 namespace App\Http;
 
+use App\Http\Middleware\CheckAdminRights;
 use App\Http\Middleware\CheckIfCartEmpty;
 use App\Http\Middleware\GenerateCartId;
 use App\Http\Middleware\IncludeLeftMenu;
@@ -73,5 +74,6 @@ class Kernel extends HttpKernel
         'verified' => \Illuminate\Auth\Middleware\EnsureEmailIsVerified::class,
         'left_menu' => WithLeftMenu::class,
         'check_cart' => CheckIfCartEmpty::class,
+        'admin' => CheckAdminRights::class,
     ];
 }

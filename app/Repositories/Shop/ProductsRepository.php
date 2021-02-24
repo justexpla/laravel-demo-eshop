@@ -20,11 +20,11 @@ class ProductsRepository extends BaseRepository
         return Model::class;
     }
 
-    public function __construct()
+    public function __construct(?int $perPage = null)
     {
         parent::__construct();
 
-        $this->perPage = config('shop.catalog_products_per_page') ?? 15;
+        $this->perPage = $perPage ?? config('shop.catalog_products_per_page') ?? 15;
     }
 
     /**
@@ -35,6 +35,8 @@ class ProductsRepository extends BaseRepository
         $data = $this->startConditions()
             ->active()
             ->select(['title', 'image', 'price', 'description', 'slug'])
+            ->where(['is_active' => true])
+            ->latest()
             ->paginate($this->perPage);
 
         return $data;
@@ -51,6 +53,19 @@ class ProductsRepository extends BaseRepository
         $data = $this->startConditions()
             ->select(['title', 'image', 'price', 'description', 'slug'])
             ->whereIn('category_id', $categoriesIds)
+            ->where(['is_active' => true])
+            ->latest()
+            ->paginate($this->perPage);
+
+        return $data;
+    }
+
+    public function getProductsForAdminListPage(): LengthAwarePaginator
+    {
+        $data = $this->startConditions()
+            ->select(['id', 'title', 'price', 'is_active', 'description', 'slug', 'category_id'])
+            ->with(['category'])
+            ->orderByDesc('id')
             ->paginate($this->perPage);
 
         return $data;

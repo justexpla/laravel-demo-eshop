@@ -26,6 +26,8 @@ class Product extends Model
 
     protected $table = 'shop_products';
 
+    protected $guarded = [];
+
     /**
      * Returns only active records
      *

@@ -2,5 +2,5 @@
 
 @section('content')
     @php /** @var \App\Models\Shop\Product $product*/ @endphp
-    @include('shop.blocks.product.show')
+    @include('shop.blocks.product_show')
 @endsection

@@ -56,6 +56,9 @@ Route::group(['as' => 'admin.', 'prefix' => 'admin', 'middleware' => ['admin']],
 
     Route::resource('/categories', \App\Http\Controllers\Admin\Catalog\CategoriesController::class)
         ->names('categories');
+
+    Route::resource('/products', \App\Http\Controllers\Admin\Catalog\ProductsController::class)
+        ->names('products');
 });
 
 Route::get('login', [App\Http\Controllers\Auth\LoginController::class, 'showLoginForm'])->name('login');

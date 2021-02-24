@@ -59,6 +59,10 @@ Route::group(['as' => 'admin.', 'prefix' => 'admin', 'middleware' => ['admin']],
 
     Route::resource('/products', \App\Http\Controllers\Admin\Catalog\ProductsController::class)
         ->names('products');
+
+    Route::resource('/orders', \App\Http\Controllers\Admin\Order\OrdersController::class)
+        ->except(['store', 'create', 'destroy'])
+        ->names('orders');
 });
 
 Route::get('login', [App\Http\Controllers\Auth\LoginController::class, 'showLoginForm'])->name('login');

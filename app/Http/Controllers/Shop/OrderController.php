@@ -6,13 +6,13 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\Shop\Order\CreateRequest;
 use App\Services\Shop\Cart\ICart;
 use App\Services\Shop\Cart\ShoppingCartService;
-use App\Services\Shop\Order\OrderService;
+use App\Services\Shop\Order\OrdersService;
 use Illuminate\Http\Request;
 
 class OrderController extends BaseController
 {
     /**
-     * @var OrderService
+     * @var OrdersService
      */
     private $orderService;
     /**
@@ -22,7 +22,7 @@ class OrderController extends BaseController
 
     public function __construct()
     {
-        $this->orderService = app(OrderService::class);
+        $this->orderService = app(OrdersService::class);
         $this->cartService = app(ShoppingCartService::class);
     }
 

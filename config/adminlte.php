@@ -244,7 +244,7 @@ return [
         ],
         [
             'text' => 'Orders',
-            'url'  => 'admin/settings',
+            'url'  => 'admin/orders/',
             'icon' => 'fas fa-fw fa-tasks',
         ]
     ],

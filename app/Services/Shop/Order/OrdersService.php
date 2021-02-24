@@ -8,7 +8,7 @@ use App\Services\Shop\Cart\ICart;
 use App\Services\Shop\Cart\ShoppingCartService;
 use Illuminate\Http\Request;
 
-class OrderService
+class OrdersService
 {
     /**
      * @var ICart
@@ -50,5 +50,21 @@ class OrderService
 
             return true;
         });
+    }
+
+    /**
+     * @param Order $order
+     * @param Request $request
+     * @return bool
+     */
+    public function update(Order $order, Request $request)
+    {
+        $data = $request->except(['_token', '_method']);
+
+        $result = $order->update($data);
+
+        // @todo: make cart change functional
+
+        return $result;
     }
 }

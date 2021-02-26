@@ -4,6 +4,7 @@ namespace App\Repositories\Shop;
 
 use App\Models\Shop\Order as Model;
 use App\Models\User;
+use Illuminate\Pagination\LengthAwarePaginator;
 
 class OrdersRepository extends BaseRepository
 {
@@ -40,6 +41,17 @@ class OrdersRepository extends BaseRepository
         $data = $order->cart()
             ->with(['product'])
             ->get();
+
+        return $data;
+    }
+
+    public function getOrdersForAdminPage(int $perPage = 30): LengthAwarePaginator
+    {
+        $data = $this->startConditions()
+            ->select(['id', 'fullname', 'phone', 'status', 'email', 'total_price', 'created_at'])
+            ->latest()
+            ->with(['cart'])
+            ->paginate($perPage);
 
         return $data;
     }

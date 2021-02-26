@@ -13,7 +13,7 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::group(['as' => 'shop.', 'middleware' => ['with_left_menu']], function () {
+Route::group(['as' => 'shop.', 'middleware' => ['left_menu:categories']], function () {
     Route::get('/', [\App\Http\Controllers\Shop\IndexController::class, 'index'])->name('index');
 
     Route::group(['prefix' => 'catalog', 'as' => 'catalog.'], function () {
@@ -36,7 +36,7 @@ Route::group(['as' => 'shop.', 'middleware' => ['with_left_menu']], function () 
             ->names('order');
     });
 
-    Route::group(['prefix' => 'cabinet', 'as' => 'cabinet.', 'middleware' => ['auth']], function () {
+    Route::group(['prefix' => 'cabinet', 'as' => 'cabinet.', 'middleware' => ['auth', 'left_menu:cabinet']], function () {
         Route::get('/', [\App\Http\Controllers\Shop\Cabinet\CabinetController::class, 'index'])->name('index');
 
         Route::group(['prefix' =>'user', 'as' => 'user.'], function () {
@@ -49,6 +49,20 @@ Route::group(['as' => 'shop.', 'middleware' => ['with_left_menu']], function () 
             ->only(['index', 'show'])
             ->names('orders');
     });
+});
+
+Route::group(['as' => 'admin.', 'prefix' => 'admin', 'middleware' => ['admin']], function () {
+    Route::get('/', [\App\Http\Controllers\Admin\IndexController::class, 'index'])->name('index');
+
+    Route::resource('/categories', \App\Http\Controllers\Admin\Catalog\CategoriesController::class)
+        ->names('categories');
+
+    Route::resource('/products', \App\Http\Controllers\Admin\Catalog\ProductsController::class)
+        ->names('products');
+
+    Route::resource('/orders', \App\Http\Controllers\Admin\Order\OrdersController::class)
+        ->except(['store', 'create', 'destroy'])
+        ->names('orders');
 });
 
 Route::get('login', [App\Http\Controllers\Auth\LoginController::class, 'showLoginForm'])->name('login');

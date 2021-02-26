@@ -2,6 +2,7 @@
 
 namespace App\Http;
 
+use App\Http\Middleware\CheckAdminRights;
 use App\Http\Middleware\CheckIfCartEmpty;
 use App\Http\Middleware\GenerateCartId;
 use App\Http\Middleware\IncludeLeftMenu;
@@ -71,7 +72,8 @@ class Kernel extends HttpKernel
         'signed' => \Illuminate\Routing\Middleware\ValidateSignature::class,
         'throttle' => \Illuminate\Routing\Middleware\ThrottleRequests::class,
         'verified' => \Illuminate\Auth\Middleware\EnsureEmailIsVerified::class,
-        'with_left_menu' => WithLeftMenu::class,
+        'left_menu' => WithLeftMenu::class,
         'check_cart' => CheckIfCartEmpty::class,
+        'admin' => CheckAdminRights::class,
     ];
 }

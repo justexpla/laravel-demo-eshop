@@ -79,16 +79,13 @@
     <div class="container">
 
         <div class="row">
-            @if(request()->get('leftMenu'))
+            @if(request()->get('leftMenuView'))
                 <div class="col-lg-3 my-4">
-
-                    @include('shop.blocks.leftmenu')
-
+                    @include(request()->get('leftMenuView'), ['items' => request()->get('leftMenuData')])
                 </div>
             @endif
             <!-- /.col-lg-3 -->
-
-            <div class="col-lg-{{request()->get('leftMenu') ? '9' : '12'}}">
+            <div class="col-lg-{{request()->get('leftMenuData') ? '9' : '12'}}">
 
                 @if($errors->count())
                     <div class="alert alert-danger my-4">{{ $errors->first() }}</div>

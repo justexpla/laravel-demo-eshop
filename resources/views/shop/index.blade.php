@@ -28,6 +28,9 @@
         </a>
     </div>
 
+    <div class="row p-2">
+        @include('shop.blocks.catalog_filter')
+    </div>
     @php /** @var \Illuminate\Pagination\LengthAwarePaginator $products */ @endphp
     <div class="row">
         @foreach($products as $product)

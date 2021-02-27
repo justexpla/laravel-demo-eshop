@@ -14,6 +14,9 @@ $(document).ready(function () {
                 $(`#quantity-${productId}`).html(
                     parseInt($(`#quantity-${productId}`).text()) + 1
                 );
+
+                $('#product-add-to-cart').toggle();
+                $('#product-remove-from-cart').toggle();
             }
         });
     });
@@ -33,6 +36,9 @@ $(document).ready(function () {
 
                 $(`#row-${productId} [data-action="remove_from_cart"]`).hide();
                 $(`#row-${productId} [data-action="restore_cart_item"]`).show();
+
+                $('#product-add-to-cart').toggle();
+                $('#product-remove-from-cart').toggle();
             }
         });
     });

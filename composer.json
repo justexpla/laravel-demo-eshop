@@ -17,7 +17,8 @@
         "kalnoy/nestedset": "^5.0",
         "laravel/framework": "^8.12",
         "laravel/tinker": "^2.5",
-        "rogervila/laravel-legacy-ui": "^3.1"
+        "rogervila/laravel-legacy-ui": "^3.1",
+        "tucker-eric/eloquentfilter": "^2.4"
     },
     "require-dev": {
         "barryvdh/laravel-debugbar": "^3.5",

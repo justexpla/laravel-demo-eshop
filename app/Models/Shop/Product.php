@@ -2,7 +2,9 @@
 
 namespace App\Models\Shop;
 
+use App\ModelFilters\ProductFilter;
 use App\Models\Shop\Traits\HasPrice;
+use EloquentFilter\Filterable;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Builder;
@@ -22,7 +24,7 @@ use Illuminate\Support\Str;
  */
 class Product extends Model
 {
-    use HasFactory, HasPrice;
+    use HasFactory, HasPrice, Filterable;
 
     protected $table = 'shop_products';
 

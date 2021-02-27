@@ -9,8 +9,16 @@
             </h5>
             <hr>
             <div>
-                <button class="btn btn-success" data-product-id="{{ $product->id }}" data-action="add_to_cart">Add to the card</button>
-                <button class="btn btn-danger">Remove from the card</button>
+                <button class="btn btn-success"
+                        data-product-id="{{ $product->id }}"
+                        data-action="add_to_cart"
+                        @if(\Cart::has($product->id)) style="display: none" @endif
+                        id="product-add-to-cart">Add to the card</button>
+                <button class="btn btn-danger"
+                        data-product-id="{{ $product->id }}"
+                        data-action="remove_from_cart"
+                        @if(! \Cart::has($product->id)) style="display: none" @endif
+                        id="product-remove-from-cart">Remove from the card</button>
             </div>
         </div>
         <div class="col-lg-6">

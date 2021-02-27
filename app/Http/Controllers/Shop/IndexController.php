@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Shop;
 
 use App\Http\Controllers\Controller;
+use App\ModelFilters\ProductFilter;
 use App\Models\Shop\Category;
 use App\Models\Shop\Product;
 use App\Repositories\Shop\CategoriesRepository;
@@ -16,7 +17,7 @@ class IndexController extends BaseController
 
     public function __construct()
     {
-        $this->productsRepository = app(ProductsRepository::class);
+        $this->productsRepository = app(ProductsRepository::class)->withFilter(ProductFilter::class);
     }
 
     /**

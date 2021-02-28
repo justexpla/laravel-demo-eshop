@@ -30,4 +30,10 @@
             {!! $product->description !!}
         </div>
     </div>
+    @if($product->image)
+        <div class="my-2">
+            <div><strong>Image: </strong></div>
+            <img src="{{ Storage::url('/products/' . $product->image) }}" alt="{{ $product->title }}" width="250" height="250">
+        </div>
+    @endif
 </div>

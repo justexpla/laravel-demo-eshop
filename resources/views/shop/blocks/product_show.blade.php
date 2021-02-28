@@ -22,7 +22,11 @@
             </div>
         </div>
         <div class="col-lg-6">
-            <img class="card-img-top" src="http://placehold.it/700x400" alt="">
+            @if($product->image && Storage::exists('/products_resized/' . $product->image))
+                <img class="card-img-top" src="{{ Storage::url('/products/' . $product->image) }}" alt="{{ $product->title }}">
+            @else
+                <img class="card-img-top" src="http://placehold.it/700x400" alt="{{ $product->title }}">
+            @endif
         </div>
     </div>
     <div class="col-lg-12 my-4">

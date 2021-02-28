@@ -23,7 +23,7 @@ class Category extends Model
     protected $table = 'shop_categories';
 
     protected $fillable = [
-        'title', 'slug' , 'image', NestedSet::PARENT_ID, NestedSet::LFT, NestedSet::RGT
+        'title', 'slug', NestedSet::PARENT_ID, NestedSet::LFT, NestedSet::RGT
     ];
 
     public function getRouteKeyName()

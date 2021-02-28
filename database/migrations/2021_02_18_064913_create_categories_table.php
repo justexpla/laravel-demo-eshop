@@ -18,7 +18,6 @@ class CreateCategoriesTable extends Migration
             $table->id();
             $table->string('title');
             $table->string('slug')->unique();
-            $table->string('image')->nullable();
             NestedSet::columns($table);
             $table->timestamps();
         });

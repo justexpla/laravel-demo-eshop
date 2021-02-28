@@ -30,7 +30,7 @@ class ProductsController extends Controller
 
     public function __construct()
     {
-        $this->productsRepository = resolve(ProductsRepository::class, ['perPage' => 50]);
+        $this->productsRepository = resolve(ProductsRepository::class, ['perPage' => config('admin_settings.products.per_page')]);
         $this->categoriesRepository = app(CategoriesRepository::class);
         $this->productsService = app(ProductsService::class);
     }

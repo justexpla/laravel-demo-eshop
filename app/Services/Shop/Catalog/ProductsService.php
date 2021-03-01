@@ -90,6 +90,12 @@ class ProductsService
         return $data;
     }
 
+    /**
+     * Loads image to a disk
+     *
+     * @param UploadedFile $file
+     * @return bool|string
+     */
     public function storeImage(UploadedFile $file): bool|string
     {
         $fileName = \Storage::disk('public')->putFile('products', $file);

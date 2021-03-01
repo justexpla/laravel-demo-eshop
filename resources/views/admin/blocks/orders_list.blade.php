@@ -13,14 +13,16 @@
     <tbody>
     @php /** @var \Illuminate\Pagination\LengthAwarePaginator $orders */ @endphp
     @foreach($orders as $order)
-        @php /** @var \App\Models\Shop\Order $order */ @endphp
-        <td><a href="{{ route('admin.orders.show', $order) }}">{{ $order->id }}</a></td>
-        <td>{{ $order->fullname }}</td>
-        <td>{{ $order->phone }}</td>
-        <td>{{ $order->email }}</td>
-        <td>{{ $order->getStatusTitle() }}</td>
-        <td>{{ $order->total_price }}</td>
-        <td>{{ $order->created_at->format('d F Y H:i:s') }}</td>
+        <tr>
+            @php /** @var \App\Models\Shop\Order $order */ @endphp
+            <td><a href="{{ route('admin.orders.show', $order) }}">{{ $order->id }}</a></td>
+            <td>{{ $order->fullname }}</td>
+            <td>{{ $order->phone }}</td>
+            <td>{{ $order->email }}</td>
+            <td>{{ $order->getStatusTitle() }}</td>
+            <td>{{ $order->total_price }}</td>
+            <td>{{ $order->created_at->format('d F Y H:i:s') }}</td>
+        </tr>
     @endforeach
     </tbody>
 </table>

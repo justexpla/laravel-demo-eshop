@@ -8,6 +8,10 @@ use App\Http\Requests\Shop\User\UpdateRequest;
 use App\Models\User;
 use Illuminate\Http\Request;
 
+/**
+ * Class UserController
+ * @package App\Http\Controllers\Shop\Cabinet
+ */
 class UserController extends BaseController
 {
     /**
@@ -50,9 +54,12 @@ class UserController extends BaseController
             fn($val) => !is_null($val)
         );
 
-        auth()->user()
+        $result = auth()->user()
             ->update($data);
 
-        return back();
+        if ($result) {
+            return back()->with(['status' => 'Data has been successfully updated']);
+        }
+        return back()->with(['error' => 'Something went wrong. Please try again']);
     }
 }

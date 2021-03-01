@@ -19,7 +19,8 @@ class ProductImageWasChanged
     /**
      * Create a new event instance.
      *
-     * @return void
+     * @param Product $product
+     * @param UploadedFile $image
      */
     public function __construct(Product $product, UploadedFile $image)
     {

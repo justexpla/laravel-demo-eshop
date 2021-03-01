@@ -2,6 +2,7 @@
 
 namespace App\Models\Shop;
 
+use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Kalnoy\Nestedset\NestedSet;
@@ -13,8 +14,9 @@ use Kalnoy\Nestedset\NodeTrait;
  * @property int $id
  * @property string $title
  * @property string $slug
- * @property string $image
  * @property int $parent_id
+ * @property Carbon $created_at
+ * @property Carbon $updated_at
  */
 class Category extends Model
 {

@@ -10,6 +10,10 @@ use App\Repositories\Shop\CategoriesRepository;
 use App\Repositories\Shop\ProductsRepository;
 use Illuminate\Http\Request;
 
+/**
+ * Class IndexController
+ * @package App\Http\Controllers\Shop
+ */
 class IndexController extends BaseController
 {
     /** @var ProductsRepository */

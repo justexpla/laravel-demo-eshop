@@ -9,5 +9,8 @@ return [
         'image_min_height' => 100,
         'image_max_width' => 2048,
         'image_max_height' => 2048,
+        // dimension to resize image
+        'resize_image_width' => 700,
+        'resize_image_height' => 400,
     ]
 ];

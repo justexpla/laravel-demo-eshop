@@ -8,6 +8,10 @@ use App\Models\Shop\Product;
 use App\Services\Shop\Cart\ShoppingCartService;
 use Illuminate\Http\Request;
 
+/**
+ * Class CartController
+ * @package App\Http\Controllers\Shop
+ */
 class CartController extends BaseController
 {
     /**

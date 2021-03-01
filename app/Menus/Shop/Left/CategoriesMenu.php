@@ -4,6 +4,12 @@ namespace App\Menus\Shop\Left;
 
 use App\Repositories\Shop\CategoriesRepository;
 
+/**
+ * Left menu with list of categories data
+ *
+ * Class CategoriesMenu
+ * @package App\Menus\Shop\Left
+ */
 class CategoriesMenu extends BaseLeftMenu
 {
     /**

@@ -4,6 +4,8 @@
 namespace App\Menus\Shop\Left;
 
 /**
+ * Left menu for cabinet section
+ *
  * Class CabinetMenu
  * @package App\Menus\Shop\Left
  */

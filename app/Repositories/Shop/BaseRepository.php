@@ -46,6 +46,8 @@ abstract class BaseRepository extends CoreRepository
     }
 
     /**
+     * Adds filter to queries in repository
+     *
      * @param string $modelFilter FilterClass
      * @return $this
      */
@@ -59,6 +61,11 @@ abstract class BaseRepository extends CoreRepository
         return $this;
     }
 
+    /**
+     * Returns if repository has initialized filter
+     *
+     * @return bool
+     */
     public function hasFilter()
     {
         return ! empty($this->filter);

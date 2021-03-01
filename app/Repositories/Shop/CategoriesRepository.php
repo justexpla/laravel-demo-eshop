@@ -7,6 +7,10 @@ use App\Models\Shop\Category as Model;
 use Illuminate\Database\Eloquent\Collection;
 use Kalnoy\Nestedset\NestedSet;
 
+/**
+ * Class CategoriesRepository
+ * @package App\Repositories\Shop
+ */
 class CategoriesRepository extends BaseRepository
 {
     /**
@@ -34,6 +38,8 @@ class CategoriesRepository extends BaseRepository
     }
 
     /**
+     * Get subcategories of given category as a nested tree
+     *
      * @param Model $model
      * @return \Kalnoy\Nestedset\Collection
      */

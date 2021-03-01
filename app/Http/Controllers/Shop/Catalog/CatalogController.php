@@ -11,6 +11,10 @@ use App\Repositories\Shop\CategoriesRepository;
 use App\Repositories\Shop\ProductsRepository;
 use Illuminate\Http\Request;
 
+/**
+ * Class CatalogController
+ * @package App\Http\Controllers\Shop\Catalog
+ */
 class CatalogController extends BaseController
 {
     /** @var ProductsRepository */

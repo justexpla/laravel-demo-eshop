@@ -9,6 +9,10 @@ use App\Services\Shop\Cart\ShoppingCartService;
 use App\Services\Shop\Order\OrdersService;
 use Illuminate\Http\Request;
 
+/**
+ * Class OrderController
+ * @package App\Http\Controllers\Shop
+ */
 class OrderController extends BaseController
 {
     /**

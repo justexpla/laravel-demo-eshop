@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Admin\Catalog;
 
+use App\Http\Controllers\Admin\BaseController;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Admin\Product\CreateRequest;
 use App\Http\Requests\Admin\Product\UpdateRequest;
@@ -11,7 +12,11 @@ use App\Repositories\Shop\ProductsRepository;
 use App\Services\Shop\Catalog\ProductsService;
 use Illuminate\Http\Request;
 
-class ProductsController extends Controller
+/**
+ * Class ProductsController
+ * @package App\Http\Controllers\Admin\Catalog
+ */
+class ProductsController extends BaseController
 {
     /**
      * @var ProductsRepository

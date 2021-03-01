@@ -2,6 +2,10 @@
 
 namespace App\Models\Shop\Traits;
 
+/**
+ * Trait HasPrice
+ * @package App\Models\Shop\Traits
+ */
 trait HasPrice
 {
     /**

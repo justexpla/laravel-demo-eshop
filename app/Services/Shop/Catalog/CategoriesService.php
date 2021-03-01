@@ -6,6 +6,10 @@ use App\Models\Shop\Category;
 use Illuminate\Http\Request;
 use Illuminate\Support\Str;
 
+/**
+ * Class CategoriesService
+ * @package App\Services\Shop\Catalog
+ */
 class CategoriesService
 {
     /**

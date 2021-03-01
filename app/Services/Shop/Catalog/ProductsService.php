@@ -2,8 +2,10 @@
 
 namespace App\Services\Shop\Catalog;
 
+use App\Events\Admin\ProductImageWasChanged;
 use App\Models\Shop\Product;
 use Illuminate\Http\Request;
+use Illuminate\Http\UploadedFile;
 use Illuminate\Support\Str;
 
 class ProductsService
@@ -31,6 +33,16 @@ class ProductsService
     public function update(Product $product, Request $request)
     {
         $data = $this->generateModelData($request);
+
+        if ($data['image'] && $product->image !== $data['image']) {
+            $file = $request->file('image');
+
+            $this->storeImage($file);
+
+            $data['image'] = $file->hashName();
+
+            event(new ProductImageWasChanged($product, $file));
+        }
 
         $result = $product->update($data);
 
@@ -69,8 +81,25 @@ class ProductsService
             $data['description'] = __('admin.products.no_description_placeholder');
         }
 
+        if (($file = $request->file('image'))->isFile()) {
+            $data['image'] = $file->getFilename();
+        }
+
         $data['is_active'] = ($data['is_active']) ? true : false;
 
         return $data;
+    }
+
+    /**
+     * Loads image to a disk
+     *
+     * @param UploadedFile $file
+     * @return bool|string
+     */
+    public function storeImage(UploadedFile $file): bool|string
+    {
+        $fileName = \Storage::disk('public')->putFile('products', $file);
+
+        return $fileName;
     }
 }

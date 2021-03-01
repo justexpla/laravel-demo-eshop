@@ -6,6 +6,10 @@ use App\Models\Shop\Order as Model;
 use App\Models\User;
 use Illuminate\Pagination\LengthAwarePaginator;
 
+/**
+ * Class OrdersRepository
+ * @package App\Repositories\Shop
+ */
 class OrdersRepository extends BaseRepository
 {
     protected function getModelClass(): string
@@ -31,7 +35,7 @@ class OrdersRepository extends BaseRepository
     }
 
     /**
-     * Returns cart of an order
+     * Loads cart of an order
      *
      * @param Model $order
      * @return \Illuminate\Database\Eloquent\Collection
@@ -45,6 +49,10 @@ class OrdersRepository extends BaseRepository
         return $data;
     }
 
+    /**
+     * @param int $perPage
+     * @return LengthAwarePaginator
+     */
     public function getOrdersForAdminPage(int $perPage = 30): LengthAwarePaginator
     {
         $data = $this->startConditions()

@@ -13,11 +13,13 @@
         "fideloper/proxy": "^4.4",
         "fruitcake/laravel-cors": "^2.0",
         "guzzlehttp/guzzle": "^7.0.1",
+        "intervention/image": "^2.5",
         "jeroennoten/laravel-adminlte": "^3.5",
         "kalnoy/nestedset": "^5.0",
         "laravel/framework": "^8.12",
         "laravel/tinker": "^2.5",
-        "rogervila/laravel-legacy-ui": "^3.1"
+        "rogervila/laravel-legacy-ui": "^3.1",
+        "tucker-eric/eloquentfilter": "^2.4"
     },
     "require-dev": {
         "barryvdh/laravel-debugbar": "^3.5",

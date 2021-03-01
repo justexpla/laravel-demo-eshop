@@ -7,6 +7,10 @@ use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Pagination\LengthAwarePaginator;
 use Kalnoy\Nestedset\NestedSet;
 
+/**
+ * Class ProductsRepository
+ * @package App\Repositories\Shop
+ */
 class ProductsRepository extends BaseRepository
 {
     /** @var int */

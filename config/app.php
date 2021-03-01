@@ -166,6 +166,7 @@ return [
          * Package Service Providers...
          */
         Darryldecode\Cart\CartServiceProvider::class,
+        Intervention\Image\ImageServiceProvider::class,
 
         /*
          * Application Service Providers...
@@ -232,6 +233,7 @@ return [
          * Package Service Aliases
          */
         'Cart' => Darryldecode\Cart\Facades\CartFacade::class,
+        'Image' => Intervention\Image\Facades\Image::class,
     ],
 
 ];

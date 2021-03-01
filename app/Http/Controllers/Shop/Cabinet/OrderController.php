@@ -8,6 +8,10 @@ use App\Models\Shop\Order;
 use App\Repositories\Shop\OrdersRepository;
 use Illuminate\Http\Request;
 
+/**
+ * Class OrderController
+ * @package App\Http\Controllers\Shop\Cabinet
+ */
 class OrderController extends BaseController
 {
     /**
@@ -32,6 +36,11 @@ class OrderController extends BaseController
         ]);
     }
 
+    /**
+     * @param Order $order
+     * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\View\Factory|\Illuminate\Contracts\View\View
+     * @throws \Illuminate\Auth\Access\AuthorizationException
+     */
     public function show(Order $order)
     {
         $this->authorize('show', $order);

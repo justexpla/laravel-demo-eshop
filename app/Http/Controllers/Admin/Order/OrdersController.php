@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Admin\Order;
 
+use App\Http\Controllers\Admin\BaseController;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Admin\Order\UpdateRequest;
 use App\Models\Shop\Order;
@@ -9,7 +10,11 @@ use App\Repositories\Shop\OrdersRepository;
 use App\Services\Shop\Order\OrdersService;
 use Illuminate\Http\Request;
 
-class OrdersController extends Controller
+/**
+ * Class OrdersController
+ * @package App\Http\Controllers\Admin\Order
+ */
+class OrdersController extends BaseController
 {
     /**
      * @var OrdersRepository

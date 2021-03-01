@@ -4,12 +4,17 @@ namespace App\Http\Controllers\Shop\Catalog;
 
 use App\Http\Controllers\Controller;
 use App\Http\Controllers\Shop\BaseController;
+use App\ModelFilters\ProductFilter;
 use App\Models\Shop\Category;
 use App\Models\Shop\Product;
 use App\Repositories\Shop\CategoriesRepository;
 use App\Repositories\Shop\ProductsRepository;
 use Illuminate\Http\Request;
 
+/**
+ * Class CatalogController
+ * @package App\Http\Controllers\Shop\Catalog
+ */
 class CatalogController extends BaseController
 {
     /** @var ProductsRepository */
@@ -17,11 +22,11 @@ class CatalogController extends BaseController
 
     public function __construct()
     {
-        $this->productRepository = app(ProductsRepository::class);
+        $this->productRepository = app(ProductsRepository::class)->withFilter(ProductFilter::class);
     }
 
     /**
-     * url /catalog/category/{category}
+     * Show catalog category
      *
      * @param Category $category
      * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\View\Factory|\Illuminate\Contracts\View\View
@@ -39,6 +44,12 @@ class CatalogController extends BaseController
         ]);
     }
 
+    /**
+     * Show catalog product
+     *
+     * @param Product $product
+     * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\View\Factory|\Illuminate\Contracts\View\View
+     */
     public function product(Product $product)
     {
         return view('shop.catalog.product')->with([

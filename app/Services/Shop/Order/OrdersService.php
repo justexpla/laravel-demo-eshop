@@ -8,6 +8,10 @@ use App\Services\Shop\Cart\ICart;
 use App\Services\Shop\Cart\ShoppingCartService;
 use Illuminate\Http\Request;
 
+/**
+ * Class OrdersService
+ * @package App\Services\Shop\Order
+ */
 class OrdersService
 {
     /**

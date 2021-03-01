@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Admin\Catalog;
 
+use App\Http\Controllers\Admin\BaseController;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Admin\Category\CreateRequest;
 use App\Http\Requests\Admin\Category\UpdateRequest;
@@ -10,7 +11,11 @@ use App\Repositories\Shop\CategoriesRepository;
 use App\Services\Shop\Catalog\CategoriesService;
 use Illuminate\Http\Request;
 
-class CategoriesController extends Controller
+/**
+ * Class CategoriesController
+ * @package App\Http\Controllers\Admin\Catalog
+ */
+class CategoriesController extends BaseController
 {
     /**
      * @var CategoriesRepository

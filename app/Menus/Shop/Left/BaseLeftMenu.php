@@ -4,6 +4,10 @@ namespace App\Menus\Shop\Left;
 
 use App\Menus\Shop\BaseMenu;
 
+/**
+ * Class BaseLeftMenu
+ * @package App\Menus\Shop\Left
+ */
 abstract class BaseLeftMenu extends BaseMenu
 {
     /**

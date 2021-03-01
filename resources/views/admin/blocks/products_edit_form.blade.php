@@ -1,5 +1,5 @@
 @php /** @var \App\Models\Shop\Product $product */@endphp
-<form class="needs-validation" novalidate="" action="{{ route('admin.products.update', $product) }}" method="POST">
+<form class="needs-validation" novalidate="" action="{{ route('admin.products.update', $product) }}" method="POST" enctype="multipart/form-data">
     @csrf
     @method('PATCH')
     <div class="row g-3">
@@ -73,8 +73,20 @@
                 </select>
             </div>
         </div>
+
+        <div class="col-12 mt-2">
+            <label for="image" class="form-label">Image</label>
+            <div class="input-group">
+                <input type="file" class="form-control" name="image">
+            </div>
+            @if($product->image)
+                <div class="mt-2">
+                    <img src="{{ Storage::url('/products/' . $product->image) }}" alt="{{ $product->title }}" width="250" height="250">
+                </div>
+            @endif
+        </div>
     </div>
     <div class="text-left">
-        <button class="w-25 btn btn-primary btn-lg my-4" type="submit">Create product</button>
+        <button class="w-25 btn btn-primary btn-lg my-4" type="submit">Edit product</button>
     </div>
 </form>

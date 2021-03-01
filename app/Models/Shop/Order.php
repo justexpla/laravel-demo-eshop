@@ -2,9 +2,25 @@
 
 namespace App\Models\Shop;
 
+use App\Models\User;
+use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
+/**
+ * Class Order
+ * @package App\Models\Shop
+ * @property int $id
+ * @property int $user_id
+ * @property int $total_price
+ * @property string $status
+ * @property string $fullname
+ * @property int $phone
+ * @property string $address
+ * @property string $commentary
+ * @property Carbon $created_at
+ * @property Carbon $updated_at
+ */
 class Order extends Model
 {
     protected $table = 'shop_orders';
@@ -66,9 +82,20 @@ class Order extends Model
         return $this->status === self::STATUS_SHIPPED;
     }
 
+    /**
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     */
     public function cart()
     {
         return $this->hasMany(OrderCart::class, 'order_id', 'id');
+    }
+
+    /**
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
+     */
+    public function user()
+    {
+        return $this->belongsTo(User::class);
     }
 
     /**
@@ -79,5 +106,24 @@ class Order extends Model
     public function getStatusTitle()
     {
         return __('order.'. $this->status);
+    }
+
+    /**
+     * @param $total_price
+     * @return float|int
+     */
+    public function getTotalPriceAttribute($total_price)
+    {
+        return $total_price % 10000
+            ? (float) round($total_price / 10000, 2)
+            : (int) $total_price / 10000;
+    }
+
+    /**
+     * @param $total_price
+     */
+    public function setTotalPriceAttribute($total_price)
+    {
+        $this->attributes['total_price'] = (int)($total_price * 10000);
     }
 }

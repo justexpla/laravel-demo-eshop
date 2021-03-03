@@ -47,15 +47,17 @@ class UserController extends BaseController
      * @param User $user
      * @return \Illuminate\Http\RedirectResponse
      */
-    public function update(UpdateRequest $request, User $user)
+    public function update(UpdateRequest $request)
     {
+        /** @var User $user */
+        $user = auth()->user();
+        
         $data = array_filter(
-            $request->except(['_token', '_method']),
+            $request->validated(),
             fn($val) => !is_null($val)
         );
 
-        $result = auth()->user()
-            ->update($data);
+        $result = $user->update($data);
 
         if ($result) {
             return back()->with(['status' => 'Data has been successfully updated']);

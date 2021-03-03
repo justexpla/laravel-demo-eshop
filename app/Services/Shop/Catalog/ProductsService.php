@@ -7,35 +7,30 @@ use App\Models\Shop\Product;
 use Illuminate\Http\Request;
 use Illuminate\Http\UploadedFile;
 use Illuminate\Support\Str;
+use Storage;
 
 class ProductsService
 {
     /**
-     * @param Request $request
+     * @param array $data
      * @return mixed
      */
-    public function create(Request $request)
+    public function create(array $data)
     {
-        $data = $this->generateModelData($request);
-
         $result = Product::create($data);
-
-        //events
 
         return $result;
     }
 
     /**
-     * @param Request $request
+     * @param array $data
      * @param Product $product
      * @return bool
      */
-    public function update(Product $product, Request $request)
+    public function update(Product $product, array $data)
     {
-        $data = $this->generateModelData($request);
-
         if ($data['image'] && $product->image !== $data['image']) {
-            $file = $request->file('image');
+            $file = request()->file('image');
 
             $this->storeImage($file);
 
@@ -58,36 +53,7 @@ class ProductsService
     {
         $result = $product->delete();
 
-        // events
-
         return $result;
-    }
-
-    /**
-     * Get model's data from request and generate missing parts
-     *
-     * @param Request $request
-     * @return array
-     */
-    private function generateModelData(Request $request): array
-    {
-        $data = $request->except(['_token']);
-
-        if (! $data['slug']) {
-            $data['slug'] = Str::slug($data['title']);
-        }
-
-        if (! $data['description']) {
-            $data['description'] = __('admin.products.no_description_placeholder');
-        }
-
-        if (($file = $request->file('image'))->isFile()) {
-            $data['image'] = $file->getFilename();
-        }
-
-        $data['is_active'] = ($data['is_active']) ? true : false;
-
-        return $data;
     }
 
     /**
@@ -98,7 +64,7 @@ class ProductsService
      */
     public function storeImage(UploadedFile $file): bool|string
     {
-        $fileName = \Storage::disk('public')->putFile('products', $file);
+        $fileName = Storage::disk('public')->putFile('products', $file);
 
         return $fileName;
     }

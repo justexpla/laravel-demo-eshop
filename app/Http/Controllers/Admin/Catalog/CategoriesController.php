@@ -27,10 +27,10 @@ class CategoriesController extends BaseController
      */
     private $categoriesService;
 
-    public function __construct()
+    public function __construct(CategoriesRepository $categoriesRepository, CategoriesService $categoriesService)
     {
-        $this->categoriesRepository = app(CategoriesRepository::class);
-        $this->categoriesService = app(CategoriesService::class);
+        $this->categoriesRepository = $categoriesRepository;
+        $this->categoriesService = $categoriesService;
     }
 
     /**
@@ -71,7 +71,7 @@ class CategoriesController extends BaseController
     public function store(CreateRequest $request)
     {
         $category = $this->categoriesService
-            ->create($request);
+            ->create($request->validated());
 
         return redirect()->route('admin.categories.index')->with([
             'status' => "Category {$category->title} has been created"
@@ -122,7 +122,7 @@ class CategoriesController extends BaseController
     public function update(UpdateRequest $request, Category $category)
     {
         $result = $this->categoriesService
-            ->update($category, $request);
+            ->update($category, $request->validated());
 
         if ($result) {
             return redirect()->route('admin.categories.edit', ['category' => $category, 'parent_id' => $category->parent_id])->with([

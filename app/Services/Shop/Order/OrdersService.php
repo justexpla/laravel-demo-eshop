@@ -24,10 +24,12 @@ class OrdersService
         $this->cartService = app(ShoppingCartService::class);
     }
 
-    public function create(Request $request)
+    /**
+     * @param array $data
+     * @return bool
+     */
+    public function create(array $data)
     {
-        $data = $request->except(['token']);
-
         $data['user_id'] = auth()->id() ?? null;
 
         return \DB::transaction(function () use ($data) {
@@ -42,8 +44,9 @@ class OrdersService
                 'status' => Order::STATUS_AWAITING_PAYMENT,
                 'total_price' => $this->cartService->getTotalPrice()
             ]);
-
-            foreach ($this->cartService->getContent() as $cartItem) {
+            
+            $cart = $this->cartService->getContent();
+            foreach ($cart as $cartItem) {
                 OrderCart::create([
                     'order_id' => $order->id,
                     'product_id' => $cartItem->id,
@@ -58,13 +61,11 @@ class OrdersService
 
     /**
      * @param Order $order
-     * @param Request $request
+     * @param array $data
      * @return bool
      */
-    public function update(Order $order, Request $request)
+    public function update(Order $order, array $data)
     {
-        $data = $request->except(['_token', '_method']);
-
         $result = $order->update($data);
 
         // @todo: make cart change functional

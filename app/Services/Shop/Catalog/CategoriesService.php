@@ -13,60 +13,37 @@ use Illuminate\Support\Str;
 class CategoriesService
 {
     /**
-     * @param Request $request
+     * @param array $data
      * @return Category
      */
-    public function create(Request $request)
+    public function create(array $data)
     {
-        $data = $this->generateModelData($request);
-
         /** @var Category $category */
         $category = Category::create($data);
-
-        //events
 
         return $category;
     }
 
     /**
-     * @param Category $category
+     * @param array $data
      * @param Request $request
      * @return bool
      */
-    public function update(Category $category, Request $request)
+    public function update(Category $category, array $data)
     {
-        $data = $this->generateModelData($request);
-
         $result = $category->update($data);
-
-        //events
-
-        return $result;
-    }
-
-    public function delete(Category $category)
-    {
-        $result = $category->delete();
-
-        //events
 
         return $result;
     }
 
     /**
-     * Get model's data from request and generate missing parts
-     *
-     * @param Request $request
-     * @return array
+     * @param Category $category
+     * @return bool
      */
-    private function generateModelData(Request $request): array
+    public function delete(Category $category)
     {
-        $data = $request->except(['_token']);
+        $result = $category->delete();
 
-        if (! $data['slug']) {
-            $data['slug'] = Str::slug($data['title']);
-        }
-
-        return $data;
+        return $result;
     }
 }

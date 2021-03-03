@@ -18,16 +18,16 @@ class OrderController extends BaseController
     /**
      * @var OrdersService
      */
-    private $orderService;
+    private $ordersService;
     /**
      * @var ICart
      */
     private $cartService;
 
-    public function __construct()
+    public function __construct(OrdersService $ordersService, ShoppingCartService $cartService)
     {
-        $this->orderService = app(OrdersService::class);
-        $this->cartService = app(ShoppingCartService::class);
+        $this->ordersService = $ordersService;
+        $this->cartService = $cartService;
     }
 
     /**
@@ -48,7 +48,7 @@ class OrderController extends BaseController
      */
     public function store(CreateRequest $request)
     {
-        $result = $this->orderService->create($request);
+        $result = $this->ordersService->create($request->validated());
 
         if ($result) {
             $this->cartService->reset();

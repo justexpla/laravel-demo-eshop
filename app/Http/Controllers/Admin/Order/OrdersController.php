@@ -26,10 +26,10 @@ class OrdersController extends BaseController
      */
     private $ordersService;
 
-    public function __construct()
+    public function __construct(OrdersRepository $ordersRepository, OrdersService $ordersService)
     {
-        $this->ordersRepository = app(OrdersRepository::class);
-        $this->ordersService = app(OrdersService::class);
+        $this->ordersRepository = $ordersRepository;
+        $this->ordersService = $ordersService;
     }
 
     /**
@@ -88,7 +88,7 @@ class OrdersController extends BaseController
     public function update(UpdateRequest $request, Order $order)
     {
         $result = $this->ordersService
-            ->update($order, $request);
+            ->update($order, $request->validated());
 
         if ($result) {
             return redirect()->route('admin.orders.show', $order)->with([

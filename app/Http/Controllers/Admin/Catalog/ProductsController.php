@@ -9,6 +9,7 @@ use App\Http\Requests\Admin\Product\UpdateRequest;
 use App\Models\Shop\Product;
 use App\Repositories\Shop\CategoriesRepository;
 use App\Repositories\Shop\ProductsRepository;
+use App\Services\Shop\Catalog\CategoriesService;
 use App\Services\Shop\Catalog\ProductsService;
 use Illuminate\Http\Request;
 
@@ -33,11 +34,11 @@ class ProductsController extends BaseController
      */
     private $productsService;
 
-    public function __construct()
+    public function __construct(CategoriesRepository $categoriesRepository, ProductsService $productsService)
     {
         $this->productsRepository = resolve(ProductsRepository::class, ['perPage' => config('admin_settings.products.per_page')]);
-        $this->categoriesRepository = app(CategoriesRepository::class);
-        $this->productsService = app(ProductsService::class);
+        $this->categoriesRepository = $categoriesRepository;
+        $this->productsService = $productsService;
     }
 
     /**
@@ -93,8 +94,10 @@ class ProductsController extends BaseController
      */
     public function store(CreateRequest $request)
     {
+        $preparedData = $this->prepareSavingData($request->validated());
+
         $product = $this->productsService
-            ->create($request);
+            ->create($preparedData);
 
         if ($product) {
             return redirect()->route('admin.products.edit', ['product' => $product, 'parent_id' => $product->category_id])->with([
@@ -129,8 +132,10 @@ class ProductsController extends BaseController
      */
     public function update(UpdateRequest $request, Product $product)
     {
+        $preparedData = $this->prepareSavingData($request->validated());
+
         $result = $this->productsService
-            ->update($product, $request);
+            ->update($product, $preparedData);
 
         if ($result) {
             return redirect()->route('admin.products.edit', ['product' => $product, 'parent_id' => $product->category_id])->with([
@@ -154,5 +159,24 @@ class ProductsController extends BaseController
                 'status-danger' => "Product {$product->title} has been deleted"
             ]);
         }
+    }
+
+    /**
+     * Prepare missing data for product saving
+     * 
+     * @param array $requestData
+     * @return array
+     */
+    public function prepareSavingData(array $requestData): array
+    {
+        $preparedData = $requestData;
+
+        $preparedData['is_active'] = (isset($requestData['is_active'])) ? true : false;
+
+        if (request()->file('image') && ($file = request()->file('image'))->isFile()) {
+            $preparedData['image'] = $file->getFilename();
+        }
+
+        return $preparedData;
     }
 }

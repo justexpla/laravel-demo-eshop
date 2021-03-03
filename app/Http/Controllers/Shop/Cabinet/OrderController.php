@@ -19,9 +19,9 @@ class OrderController extends BaseController
      */
     private $ordersRepository;
 
-    public function __construct()
+    public function __construct(OrdersRepository $ordersRepository)
     {
-        $this->ordersRepository = app(OrdersRepository::class);
+        $this->ordersRepository = $ordersRepository;
     }
 
     /**

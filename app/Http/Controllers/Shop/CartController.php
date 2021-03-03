@@ -19,9 +19,9 @@ class CartController extends BaseController
      */
     private $cartService;
 
-    public function __construct()
+    public function __construct(ShoppingCartService $shoppingCartService)
     {
-        $this->cartService = app(ShoppingCartService::class);
+        $this->cartService = $shoppingCartService;
     }
 
     /**
@@ -41,7 +41,7 @@ class CartController extends BaseController
         $this->cartService->add($request);
 
         if (\request()->wantsJson()) {
-            $response = json_encode([
+            $response = response()->json([
                 'status' => true,
                 'cart_items_total' => \Cart::getContent()->count(),
                 'cart_total_sum' => \Cart::getTotal(),
@@ -60,7 +60,7 @@ class CartController extends BaseController
         $this->cartService->remove($request);
 
         if (\request()->wantsJson()) {
-            $response = json_encode([
+            $response = response()->json([
                 'status' => true,
                 'cart_items_total' => \Cart::getContent()->count(),
                 'cart_total_sum' => \Cart::getTotal(),
@@ -77,7 +77,7 @@ class CartController extends BaseController
     {
         $this->cartService->reset();
 
-        return json_encode([
+        return response()->json([
             'success' => true
         ]);
     }
@@ -91,7 +91,7 @@ class CartController extends BaseController
         $this->cartService->update($request);
 
         if (\request()->wantsJson()) {
-            $response = json_encode([
+            $response = response()->json([
                 'status' => true,
                 'cart_items_total' => \Cart::getContent()->count(),
                 'cart_total_sum' => \Cart::getTotal(),
